@@ -51,4 +51,16 @@ const userSchema = new mongoose.Schema({
  }
 );
 
+userSchema.methods.generateVerificationCode = function(){
+    function generateRandomFiveDigitNumber(){
+        const firstDigit = Math.floor(Math.random() * 9) + 1; // First digit cannot be 0
+        const remainingDigits = Math.floor(Math.random() * 10000).toString().padStart(4, 0); // Generate 4 random digits
+        return parseInt(firstDigit + remainingDigits); // Combine first digit with remaining digits to form a 5-digit number
+    }
+    const verificationCode = generateRandomFiveDigitNumber(); // Generate a random 5-digit verification code
+    this.verificationCode = verificationCode; // Set the verification code on the user instance
+    this.verificationCodeExpire = Date.now() + 15 * 60 * 1000; // Set the expiration time to 15 minutes from now
+    return verificationCode; // Return the generated verification code
+};
+
 export const User = mongoose.model("User", userSchema); // Create and export the User model based on the schema
