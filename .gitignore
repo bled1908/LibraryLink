@@ -1,0 +1,71 @@
+# === Node.js (Backend) ===
+server/node_modules/
+server/package-lock.json
+server/logs/
+server/tmp/
+server/.env
+server/config/config.env
+
+# === React (Frontend) ===
+client/node_modules/
+client/build/
+client/.env
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+
+# === System Files ===
+.DS_Store
+Thumbs.db
+
+# === Editor Files ===
+.vscode/
+.idea/
+*.iml
+
+# === Logs & Debug Files ===
+*.log
+*.csv
+debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.pid
+*.seed
+*.pid.lock
+
+# === Test Output ===
+coverage/
+*.lcov
+
+# === Build Artifacts ===
+dist/
+build/
+.cache/
+.temp/
+tmp/
+
+# === Git ===
+*.orig
+
+# === Optional npm/yarn/pnpm artifacts ===
+*.tgz
+
+# === MongoDB dump files ===
+dump/
+
+# === Docker (if using) ===
+.docker/
+docker-compose.override.yml
+
+# === PM2 (if using for deployment) ===
+*.log
+pm2.log
+
+# === Others ===
+*.swp
+*.swo
+*.bak
+*.tmp
