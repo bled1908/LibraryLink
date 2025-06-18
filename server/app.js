@@ -6,6 +6,7 @@ import { config } from "dotenv"; // Import the dotenv module to load environment
 import cookieParser from "cookie-parser";
 import cors from "cors"; // Import the cors module for Cross-Origin Resource Sharing
 import { connectDB } from "./database/db.js"; // Import the connectDB function to connect to the database
+import { errorMiddleware } from "./middlewares/errorMiddlewares.js"; // Import the error middleware for handling errors
 
 export const app = express(); // Create an instance of express and export it
 
@@ -22,3 +23,5 @@ app.use(express.json()); // Middleware to parse JSON request bodies
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded request bodies
 
 connectDB();
+
+app.use(errorMiddleware); // Use the error middleware to handle errors globally
