@@ -1,3 +1,4 @@
+import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/errorMiddlewares.js";
 import { User } from "../models/userModel.js";
 import bcrypt from "bcrypt";
@@ -14,11 +15,11 @@ export const register = catchAsyncErrors(async (req, res, next) => {
         if(isRegistered) {
             return next(new ErrorHandler("User already exists.", 400));
         }
-        const registerationAttemptsByUser = await User.find({
+        const registrationAttemptsByUser = await User.find({
             email,
             accountVerified: false,
         });
-        if(registerationAttemptsByUser.length >= 5) {
+        if(registrationAttemptsByUser.length >= 5) {
             return next(new ErrorHandler("You have exceeded the maximum number of registration attempts. Please contact support.", 400));
         }
         if(password.length < 8 || password.length > 16) {
