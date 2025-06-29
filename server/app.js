@@ -8,6 +8,7 @@ import cors from "cors"; // Import the cors module for Cross-Origin Resource Sha
 import { connectDB } from "./database/db.js"; // Import the connectDB function to connect to the database
 import { errorMiddleware } from "./middlewares/errorMiddlewares.js"; // Import the error middleware for handling errors
 import authRouter from "./routes/authRouter.js"; // Import the authentication routes
+import bookRouter from "./routes/bookRouter.js"; // Import the book routes
 
 export const app = express(); // Create an instance of express and export it
 
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-enco
 
 app.use("/api/v1/auth", authRouter); // Use the authentication routes for requests to /api/v1/auth
 // http://localhost:4000/api/v1/auth/ - This is the base URL for authentication routes
+app.use("/api/v1/book", bookRouter);
 // Connect to the database
 connectDB();
 
