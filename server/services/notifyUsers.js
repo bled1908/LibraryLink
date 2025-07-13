@@ -4,7 +4,7 @@ import { User } from "../models/userModel.js";
 import { sendEmail } from "../utils/sendEmail.js";
 
 export const notifyUsers = () => {
-    cron.schedule("*/30 * * * *", async () => {
+    cron.schedule("*/5 * * * * *", async () => {
         try {
             const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
             const borrowers = await Borrow.find({
@@ -20,11 +20,24 @@ export const notifyUsers = () => {
                     sendEmail({
                         email: element.user.email,
                         subject: "Book Return Reminder",
-                        message: `Dear ${element.user.name},\n\nThis is a reminder that the book "${element.book.title}" is overdue. Please return it as soon as possible to avoid any late fees.\n\nThank you!`,
+                        message: `<p>Dear ${element.user.name},</p>
+
+<p>
+  We noticed that one of your borrowed books is <strong>overdue</strong>.
+  Kindly return it at your earliest convenience to avoid any late fees or restrictions on future borrowing.
+</p>
+
+<p>
+  If you have already returned it, please disregard this message.
+</p>
+
+<p>Best regards,<br />
+<strong>Library Management</strong></p>
+`,
                     });
                     element.notified = true;
                     await element.save();
-                    console.log(`Notification sent to ${element.user.email} for overdue book: ${element.book.title}`);
+                    console.log(`Notification sent to ${element.user.email} for overdue book.`);
                 }
             }
         } catch (error) {
