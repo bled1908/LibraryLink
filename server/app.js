@@ -10,6 +10,8 @@ import { errorMiddleware } from "./middlewares/errorMiddlewares.js"; // Import t
 import authRouter from "./routes/authRouter.js"; // Import the authentication routes
 import bookRouter from "./routes/bookRouter.js"; // Import the book routes
 import borrowRouter from "./routes/borrowRouter.js";
+import userRouter from "./routes/userRouter.js";
+import expressFileupload from "express-fileupload";
 
 export const app = express(); // Create an instance of express and export it
 
@@ -26,10 +28,16 @@ app.use(cookieParser()); // Middleware to parse cookies from the request
 app.use(express.json()); // Middleware to parse JSON request bodies
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded request bodies
 
+app.use(expressFileupload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+}));
+
 app.use("/api/v1/auth", authRouter); // Use the authentication routes for requests to /api/v1/auth
 // http://localhost:4000/api/v1/auth/ - This is the base URL for authentication routes
 app.use("/api/v1/book", bookRouter);
 app.use("/api/v1/borrow", borrowRouter);
+app.use("/api/v1/user", userRouter);
 
 // Connect to the database
 connectDB();
