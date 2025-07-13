@@ -12,6 +12,8 @@ import bookRouter from "./routes/bookRouter.js"; // Import the book routes
 import borrowRouter from "./routes/borrowRouter.js";
 import userRouter from "./routes/userRouter.js";
 import expressFileupload from "express-fileupload";
+import { notifyUsers } from "./services/notifyUsers.js";
+import { removeUnverifiedAccounts } from "./services/removeUnverifiedAccounts.js";
 
 export const app = express(); // Create an instance of express and export it
 
@@ -38,6 +40,9 @@ app.use("/api/v1/auth", authRouter); // Use the authentication routes for reques
 app.use("/api/v1/book", bookRouter);
 app.use("/api/v1/borrow", borrowRouter);
 app.use("/api/v1/user", userRouter);
+
+notifyUsers();
+removeUnverifiedAccounts();
 
 // Connect to the database
 connectDB();
