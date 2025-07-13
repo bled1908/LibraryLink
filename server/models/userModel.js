@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     accountVerified: { type: Boolean, default: false },
     borrowedBooks: [
         {
-            bookID: {
+            bookId: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Borrow" // Reference to the Borrow model
             },
